@@ -18,13 +18,12 @@ export default function SelectRolePage() {
       const tempToken = localStorage.getItem("temp_token");
       const tempUser = JSON.parse(localStorage.getItem("temp_user"));
 
+      // Temporarily set token in localStorage so interceptor picks it up
+      localStorage.setItem("token", tempToken);
+      
       // Update role
-      const res = await axiosInstance.patch(
-        "/users/role",
-        { role: selectedRole },
-        { headers: { Authorization: `Bearer ${tempToken}` } }
-      );
-
+      await axiosInstance.patch("/users/role", { role: selectedRole });
+    
       // Clean up temp storage
       localStorage.removeItem("temp_token");
       localStorage.removeItem("temp_user");
