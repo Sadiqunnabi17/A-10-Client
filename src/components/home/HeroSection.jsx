@@ -23,7 +23,7 @@ export default function HeroSection() {
             Your Digital Library
           </span>
           <h1
-            className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
+            className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "Georgia, serif" }}
           >
             Discover & Read
