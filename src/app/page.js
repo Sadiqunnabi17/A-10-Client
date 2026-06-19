@@ -1,8 +1,15 @@
+import HeroSection from "@/components/home/HeroSection";
+import FeaturedEbooks from "@/components/home/FeaturedEbooks";
+import TopWriters from "@/components/home/TopWriters";
+import GenresSection from "@/components/home/GenresSection";
+
 export default function Home() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-primary">Welcome to Fable</h1>
-      <p className="text-gray-600 mt-4">Discover & Read Original Ebooks</p>
-    </div>
+    <main>
+      <HeroSection />
+      <FeaturedEbooks />
+      <TopWriters />
+      <GenresSection />
+    </main>
   );
 }
