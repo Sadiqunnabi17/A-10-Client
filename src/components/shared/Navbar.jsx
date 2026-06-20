@@ -101,6 +101,13 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          
+          {user && (
+            <div className="border-t border-white/10 pt-3 mt-1">
+              <p className="text-xs text-gray-400 px-2 mb-2">Signed in as {user.name}</p>
+            </div>
+          )}
+          
           {user ? (
             <button
               onClick={handleLogout}
