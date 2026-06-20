@@ -37,12 +37,14 @@ const handler = NextAuth({
       if (user) {
         token.backendToken = user.backendToken;
         token.backendUser = user.backendUser;
+        token.isNewUser = user.isNewUser;
       }
       return token;
     },
     async session({ session, token }) {
       session.backendToken = token.backendToken;
       session.backendUser = token.backendUser;
+      session.isNewUser = token.isNewUser;
       return session;
     },
   },

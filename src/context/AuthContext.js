@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AuthContext = createContext(null);
 
@@ -9,6 +10,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     
@@ -19,6 +21,12 @@ export function AuthProvider({ children }) {
       localStorage.setItem("token", session.backendToken);
       localStorage.setItem("user", JSON.stringify(session.backendUser));
       setLoading(false);
+
+      if (session.isNewUser) {
+        localStorage.setItem("temp_token", session.backendToken);
+        localStorage.setItem("temp_user", JSON.stringify(session.backendUser));
+        router.push("/select-role");
+      }
       return;
     }
 
