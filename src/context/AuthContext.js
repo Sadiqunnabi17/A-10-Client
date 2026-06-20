@@ -15,7 +15,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     
     // Check Google session first
+    console.log("Status:", status);
+    console.log("Session:", session);
     if (status === "authenticated" && session?.backendToken) {
+      // console.log("Session:", session); // ← add this
+      // console.log("isNewUser:", session.isNewUser); // ← add this
+      
       setUser(session.backendUser);
       setToken(session.backendToken);
       localStorage.setItem("token", session.backendToken);

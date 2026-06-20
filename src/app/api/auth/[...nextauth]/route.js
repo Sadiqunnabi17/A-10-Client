@@ -13,7 +13,6 @@ const handler = NextAuth({
     async signIn({ user, account }) {
       if (account.provider === "google") {
         try {
-          // Send to our backend to create/find user and get JWT
           const res = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
             {
@@ -22,9 +21,9 @@ const handler = NextAuth({
               photo: user.image,
             }
           );
-          // Store token and user in the token
           user.backendToken = res.data.token;
           user.backendUser = res.data.user;
+          user.isNewUser = res.data.isNewUser;
           return true;
         } catch (err) {
           console.error("Google sign in error:", err);
