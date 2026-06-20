@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fable - Ebook Sharing Platform (Client)
 
-## Getting Started
+## Project Purpose
+Fable is a digital platform connecting readers with talented writers through original ebooks.
 
-First, run the development server:
+## Live URL
+[https://a-10-client-4c3pasl3r-sadiqunnabis-projects.vercel.app](https://a-10-client-4c3pasl3r-sadiqunnabis-projects.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key Features
+- JWT Authentication with Google OAuth
+- Role-based dashboards (Reader, Writer, Admin)
+- Browse ebooks with search, filter, sort, pagination
+- Stripe payment integration
+- Bookmark system
+- Framer Motion animations
+- Fully responsive design
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## NPM Packages Used
+- next
+- react
+- tailwindcss
+- axios
+- @tanstack/react-query
+- framer-motion
+- react-hot-toast
+- react-icons
+- stripe
