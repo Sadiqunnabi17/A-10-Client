@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 const AuthContext = createContext(null);
 
@@ -7,16 +8,31 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+    
+    // Check Google session first
+    if (status === "authenticated" && session?.backendToken) {
+      setUser(session.backendUser);
+      setToken(session.backendToken);
+      localStorage.setItem("token", session.backendToken);
+      localStorage.setItem("user", JSON.stringify(session.backendUser));
+      setLoading(false);
+      return;
     }
-    setLoading(false);
-  }, []);
+
+    // Fall back to localStorage for email/password login
+    if (status !== "loading") {
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+      if (storedToken && storedUser) {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+      }
+      setLoading(false);
+    }
+  }, [session, status]);
 
   const login = (userData, userToken) => {
     setUser(userData);
