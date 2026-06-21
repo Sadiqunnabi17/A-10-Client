@@ -8,8 +8,6 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -17,4 +15,14 @@ body {
   background-color: #F5F0E8;
   color: #1B2E4B;
   font-family: "Inter", sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
 }
