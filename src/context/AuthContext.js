@@ -27,9 +27,11 @@ export function AuthProvider({ children }) {
       localStorage.setItem("user", JSON.stringify(session.backendUser));
       setLoading(false);
 
-      if (session.isNewUser) {
+      const alreadyRegistered = localStorage.getItem("role_selected");
+      if (session.isNewUser && !alreadyRegistered) {
         localStorage.setItem("temp_token", session.backendToken);
         localStorage.setItem("temp_user", JSON.stringify(session.backendUser));
+        localStorage.setItem("role_selected", "true");
         router.push("/select-role");
       }
       return;
@@ -59,6 +61,7 @@ export function AuthProvider({ children }) {
     setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("role_selected");
   };
 
   return (
