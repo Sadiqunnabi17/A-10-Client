@@ -1,10 +1,9 @@
 "use client";
-import { Suspense } from "react";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import axiosInstance from "@/lib/axios";
 import EbookCard from "@/components/shared/EbookCard";
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { FiSearch, FiFilter, FiX } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 const genres = [
@@ -61,6 +60,17 @@ function BrowseContent() {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
+  const resetFilters = () => {
+    setFilters({
+      search: "",
+      genre: "All",
+      minPrice: "",
+      maxPrice: "",
+      availability: "",
+      sort: "newest",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-accent">
       {/* Header */}
@@ -75,6 +85,7 @@ function BrowseContent() {
           <p className="text-gray-300 mb-8">
             Discover original ebooks from talented writers
           </p>
+          {/* Search with clear buttons */}
           <div className="relative max-w-xl mx-auto">
             <FiSearch className="absolute left-4 top-3.5 text-gray-400" size={20} />
             <input
@@ -84,6 +95,14 @@ function BrowseContent() {
               onChange={(e) => handleFilterChange("search", e.target.value)}
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-white text-primary outline-none shadow-lg"
             />
+            {filters.search && (
+              <button
+                onClick={() => handleFilterChange("search", "")}
+                className="absolute right-4 top-3.5 text-gray-400 hover:text-red-400 transition"
+              >
+                <FiX size={18} />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -133,6 +152,14 @@ function BrowseContent() {
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
           </select>
+            {/* Reset Filters Button */}
+          <button
+            onClick={resetFilters}
+            className="ml-auto text-sm text-gray-400 hover:text-red-400 transition flex items-center gap-1"
+          >
+            <FiX size={14} />
+            Reset
+          </button>
         </div>
 
         {/* Ebooks Grid */}
