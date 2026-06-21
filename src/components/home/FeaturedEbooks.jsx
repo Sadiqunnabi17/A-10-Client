@@ -18,7 +18,7 @@ export default function FeaturedEbooks() {
 
   return (
     <section className="py-20 bg-accent">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export default function FeaturedEbooks() {
         <div className="text-center mt-12">
           <Link
             href="/browse"
-            className="bg-primary text-white px-8 py-3 rounded-lg font-semibold text-sm hover:bg-dark transition"
+            className="bg-primary text-white px-8 py-3 rounded-lg font-semibold text-sm hover:bg-dark transition inline-flex items-center gap-2"
           >
             View All Ebooks
           </Link>

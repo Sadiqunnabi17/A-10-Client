@@ -3,20 +3,20 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const genres = [
-  { name: "Fiction", emoji: "📖", color: "bg-blue-50 text-blue-700" },
-  { name: "Mystery", emoji: "🔍", color: "bg-purple-50 text-purple-700" },
-  { name: "Romance", emoji: "💕", color: "bg-pink-50 text-pink-700" },
-  { name: "Sci-Fi", emoji: "🚀", color: "bg-indigo-50 text-indigo-700" },
-  { name: "Fantasy", emoji: "🧙", color: "bg-emerald-50 text-emerald-700" },
-  { name: "Horror", emoji: "👻", color: "bg-red-50 text-red-700" },
-  { name: "Biography", emoji: "👤", color: "bg-amber-50 text-amber-700" },
-  { name: "Self-Help", emoji: "💡", color: "bg-yellow-50 text-yellow-700" },
+  { name: "Fiction", emoji: "📖" },
+  { name: "Mystery", emoji: "🔍" },
+  { name: "Romance", emoji: "💕" },
+  { name: "Sci-Fi", emoji: "🚀" },
+  { name: "Fantasy", emoji: "🧙" },
+  { name: "Horror", emoji: "👻" },
+  { name: "Biography", emoji: "👤" },
+  { name: "Self-Help", emoji: "💡" },
 ];
 
 export default function GenresSection() {
   return (
     <section className="py-20 bg-accent">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,10 +47,12 @@ export default function GenresSection() {
             >
               <Link
                 href={`/browse?genre=${genre.name}`}
-                className={`${genre.color} rounded-xl p-6 flex flex-col items-center gap-3 text-center hover:shadow-md transition block`}
+                className="bg-white border-2 border-transparent hover:border-secondary rounded-xl p-6 flex flex-col items-center gap-3 text-center hover:shadow-md transition block group"
               >
                 <span className="text-4xl">{genre.emoji}</span>
-                <span className="font-semibold text-sm">{genre.name}</span>
+                <span className="font-semibold text-sm text-primary group-hover:text-secondary transition">
+                  {genre.name}
+                </span>
               </Link>
             </motion.div>
           ))}

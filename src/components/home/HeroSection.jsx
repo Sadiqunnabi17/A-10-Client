@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiBook } from "react-icons/fi";
 
 export default function HeroSection() {
   return (
@@ -12,7 +12,7 @@ export default function HeroSection() {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-8 py-20 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -47,6 +47,21 @@ export default function HeroSection() {
               Start Writing
             </Link>
           </div>
+          {/* Stats Row */}
+          <div className="flex gap-8 mt-12">
+            <div>
+              <p className="text-secondary text-2xl font-bold">500+</p>
+              <p className="text-gray-400">Ebook Available</p>
+            </div>
+            <div className="border-1 border-white/20 pl-8">
+              <p className="text-secondary text-2xl font-bold">200+</p>
+              <p className="text-gray-400">Writer</p>
+            </div>
+            <div className="border-1 border-white/20 pl-8">
+              <p className="text-secondary text-2xl font-bold">1000+</p>
+              <p className="text-gray-400">Happy Readers</p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Right Content - Floating Book Cards */}
@@ -56,36 +71,68 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="hidden md:flex justify-center items-center"
         >
-          <div className="relative w-80 h-80">
-            {/* Book cards floating effect */}
+          <div className="relative w-80 h-96">
+            {/* Book 1 - Back */}
             <motion.div
-              animate={{ y: [0, -15, 0] }}
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-0 left-0 bg-secondary/20 backdrop-blur border border-secondary/30 rounded-xl p-4 w-48"
+              className="absolute top-8 left-4 w-52 h-72 rounded-lg shadow-2xl overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #C9A84C, #8B6914)" }}
             >
-              <div className="w-full h-28 bg-secondary/30 rounded-lg mb-3" />
-              <div className="h-3 bg-white/20 rounded mb-2" />
-              <div className="h-2 bg-white/10 rounded w-2/3" />
+              <div className="p-4 h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-8 h-1 bg-white/40 rounded mb-2" />
+                  <div className="w-16 h-1 bg-white/40 rounded mb-1" />
+                  <div className="w-12 h-1 bg-white/40 rounded" />
+                </div>
+                <FiBook size={40} className="text-white/30" />
+                <div>
+                  <div className="w-20 h-1 bg-white/40 rounded mb-1" />
+                  <div className="w-10 h-1 bg-white/40 rounded" />
+                </div>
+              </div>
             </motion.div>
 
+            {/* Book 2 - Middle */}
             <motion.div
-              animate={{ y: [0, 15, 0] }}
+              animate={{ y: [0, 12, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-0 right-0 bg-white/10 backdrop-blur border border-white/20 rounded-xl p-4 w-48"
+              className="absolute top-16 left-16 w-52 h-72 rounded-lg shadow-2xl overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #1B2E4B, #0F1E30)" }}
             >
-              <div className="w-full h-28 bg-white/20 rounded-lg mb-3" />
-              <div className="h-3 bg-white/20 rounded mb-2" />
-              <div className="h-2 bg-white/10 rounded w-2/3" />
+              <div className="p-4 h-full flex flex-col justify-between border border-white/10 rounded-lg">
+                <div>
+                  <div className="w-8 h-1 bg-secondary/60 rounded mb-2" />
+                  <div className="w-16 h-1 bg-white/20 rounded mb-1" />
+                  <div className="w-12 h-1 bg-white/20 rounded" />
+                </div>
+                <FiBook size={40} className="text-secondary/40" />
+                <div>
+                  <div className="w-20 h-1 bg-white/20 rounded mb-1" />
+                  <div className="w-14 h-1 bg-white/20 rounded" />
+                </div>
+              </div>
             </motion.div>
 
+            {/* Book 3 - Front */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary/30 backdrop-blur border border-secondary/40 rounded-xl p-4 w-44"
+              className="absolute top-24 left-28 w-52 h-72 rounded-lg shadow-2xl overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #2D4A6B, #1B2E4B)" }}
             >
-              <div className="w-full h-24 bg-secondary/40 rounded-lg mb-3" />
-              <div className="h-3 bg-white/30 rounded mb-2" />
-              <div className="h-2 bg-white/20 rounded w-2/3" />
+              <div className="p-4 h-full flex flex-col justify-between border border-secondary/20 rounded-lg">
+                <div>
+                  <div className="w-8 h-1 bg-secondary/80 rounded mb-2" />
+                  <div className="w-20 h-2 bg-white/30 rounded mb-1" />
+                  <div className="w-16 h-1 bg-white/20 rounded" />
+                </div>
+                <FiBook size={48} className="text-secondary/50" />
+                <div>
+                  <div className="w-24 h-1 bg-secondary/40 rounded mb-1" />
+                  <div className="w-16 h-1 bg-white/20 rounded" />
+                </div>
+              </div>
             </motion.div>
           </div>
         </motion.div>
