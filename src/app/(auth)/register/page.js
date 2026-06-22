@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import axiosInstance from "@/lib/axios";
-import { FiBook, FiMail, FiLock, FiUser } from "react-icons/fi";
+import { FiBook, FiMail, FiLock, FiUser, FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -13,8 +13,11 @@ export default function RegisterPage() {
     email: "",
     password: "",
     confirmPassword: "",
+    photo: "", 
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -32,6 +35,7 @@ export default function RegisterPage() {
         name: form.name,
         email: form.email,
         password: form.password,
+        photo: form.photo,
       });
       // Store temp token and redirect to role selection
       localStorage.setItem("temp_token", res.data.token);
@@ -66,7 +70,20 @@ export default function RegisterPage() {
               value={form.name}
               onChange={handleChange}
               required
-              className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm outline-none focus:border-secondary transition"
+              className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
+            />
+          </div>
+
+          {/* Photo URL (optional) */}
+          <div className="relative">
+            <FiUser className="absolute left-3 top-3.5 text-gray-400" />
+            <input
+              type="url"
+              name="photoUrl"
+              placeholder="Profile photo URL (optional)"
+              value={form.photoUrl}
+              onChange={handleChange}
+              className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
             />
           </div>
 
@@ -79,34 +96,49 @@ export default function RegisterPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm outline-none focus:border-secondary transition"
+              className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
             />
           </div>
 
+           {/* Password with eye toggle */} 
           <div className="relative">
             <FiLock className="absolute left-3 top-3.5 text-gray-400" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm outline-none focus:border-secondary transition"
+              className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition"
+            >
+              {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+            </button>
           </div>
 
           <div className="relative">
             <FiLock className="absolute left-3 top-3.5 text-gray-400" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="confirmPassword"
               placeholder="Confirm Password"
               value={form.confirmPassword}
               onChange={handleChange}
               required
-              className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm outline-none focus:border-secondary transition"
+              className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition"
+            >
+              {showConfirmPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+            </button>
           </div>
 
           <button

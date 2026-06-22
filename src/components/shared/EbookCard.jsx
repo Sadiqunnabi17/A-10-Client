@@ -1,10 +1,49 @@
 "use client";
 import Link from "next/link";
-import { FiBook, FiShoppingCart } from "react-icons/fi";
+import { FiBook, FiShoppingCart, FiBookmark } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
+import axiosInstance from "@/lib/axios";
+import toast from "react-hot-toast";
+import { useState } from "react";
+
 
 export default function EbookCard({ ebook }) {
   const { user } = useAuth();
+  const [purchasing, setPurchasing] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const handlePurchase = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to purchase an ebook.");
+      return;
+    }
+    setPurchasing(true);
+    try {
+      const res = await axiosInstance.post("/payment/create-checkout-session", {
+        ebookId: ebook._id,
+      });
+      window.location.href = res.data.url;
+
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Purchase failed");
+    } finally {
+      setPurchasing(false);
+    }
+  };
+
+  const handleBookmark = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to bookmark an ebook.");
+      return;
+    }
+    try {
+      await axiosInstance.patch(`/ebooks/${ebook._id}/bookmark`);
+      setBookmarked(!bookmarked);
+      toast.success(bookmarked ? "Removed from bookmarks" : "Bookmark added!");
+    } catch (err) {
+      toast.error("Failed to bookmark ebook");
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition group">
@@ -38,14 +77,33 @@ export default function EbookCard({ ebook }) {
             {ebook.title}
           </h3>
         </Link>
-        <p className="text-gray-400 text-xs mt-1 truncate">
-          {ebook.writer?.name}
-        </p>
-        <div className="flex items-center justify-between mt-3">
+        <p className="text-gray-400 text-xs mt-1 truncate">{ebook.writer?.name}</p>
+        <div className="flex items-center justify-between mt-2">
           <span className="text-secondary font-bold">${ebook.price}</span>
           <span className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-full">
             {ebook.genre}
           </span>
+        </div>
+          {/* Action Buttons */}
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={handlePurchase}
+            disabled={purchasing}
+            className="flex-1 bg-primary text-white py-2 rounded-lg text-xs font-semibold hover:bg-dark transition disabled:opacity-60 flex items-center justify-center gap-1"
+          >
+            <FiShoppingCart size={12} />
+            {purchasing ? "..." : "Buy Now"}
+          </button>
+          <button
+            onClick={handleBookmark}
+            className={`px-3 py-2 rounded-lg border transition ${
+              bookmarked
+                ? "bg-secondary text-primary border-secondary"
+                : "border-gray-200 text-gray-400 hover:border-secondary hover:text-secondary"
+            }`}
+          >
+            <FiBookmark size={14} />
+          </button>
         </div>
       </div>
     </div>
