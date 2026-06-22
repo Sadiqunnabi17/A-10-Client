@@ -58,7 +58,7 @@ export default function SalesPage() {
                       {s.ebook?.title}
                     </td>
                     <td className="px-6 py-4 text-gray-500">
-                      {s.buyer?.name}
+                      {s.buyer?.name || s.buyer?.email || "Unknown"}
                     </td>
                     <td className="px-6 py-4 text-secondary font-bold">
                       ${s.ebook?.price}
