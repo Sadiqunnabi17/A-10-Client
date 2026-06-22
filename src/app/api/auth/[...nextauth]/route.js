@@ -9,6 +9,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
   callbacks: {
     async signIn({ user, account }) {
       if (account.provider === "google") {
@@ -21,35 +22,44 @@ const handler = NextAuth({
               photo: user.image,
             }
           );
+
           user.backendToken = res.data.token;
           user.backendUser = res.data.user;
-          user.isNewUser = res.data.isNewUser;
+          user.isNewUser = res.data.isNewUser || false;
+          
           return true;
         } catch (err) {
-          console.error("Google sign in error:", err);
+          console.error("Google sign in error:", err?.response?.data || err.message);
           return false;
         }
       }
+
       return true;
     },
+    
     async jwt({ token, user }) {
       if (user) {
         token.backendToken = user.backendToken;
         token.backendUser = user.backendUser;
         token.isNewUser = user.isNewUser;
       }
+
       return token;
     },
+    
     async session({ session, token }) {
-      session.backendToken = token.backendToken;
-      session.backendUser = token.backendUser;
-      session.isNewUser = token.isNewUser;
+      session.backendToken = token.backendToken || null;
+      session.backendUser = token.backendUser || null;
+      session.isNewUser = token.isNewUser || false;
+
       return session;
     },
   },
+
   pages: {
     signIn: "/login",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 });
 
