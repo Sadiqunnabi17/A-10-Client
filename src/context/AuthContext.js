@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react"; // ← added signOut
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext(null);
@@ -14,40 +14,43 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     
-    // Check Google session first
-    console.log("Status:", status);
-    console.log("Session:", session);
+
     if (status === "authenticated" && session?.backendToken) {
-      // console.log("Session:", session); // ← add this
-      // console.log("isNewUser:", session.isNewUser); // ← add this
-      
-      setUser(session.backendUser);
-      setToken(session.backendToken);
-      localStorage.setItem("token", session.backendToken);
-      localStorage.setItem("user", JSON.stringify(session.backendUser));
-      setLoading(false);
+      const backendUser = session.backendUser;
+      const backendToken = session.backendToken;
+
+      localStorage.setItem("token", backendToken);
+      localStorage.setItem("user", JSON.stringify(backendUser));
+
+      setTimeout(() => {
+        setUser(backendUser);
+        setToken(backendToken);
+        setLoading(false);
+      }, 0);
 
       const alreadyRegistered = localStorage.getItem("role_selected");
       if (session.isNewUser && !alreadyRegistered) {
-        localStorage.setItem("temp_token", session.backendToken);
-        localStorage.setItem("temp_user", JSON.stringify(session.backendUser));
+        localStorage.setItem("temp_token", backendToken);
+        localStorage.setItem("temp_user", JSON.stringify(backendUser));
         localStorage.setItem("role_selected", "true");
         router.push("/select-role");
       }
       return;
     }
 
-    // Fall back to localStorage for email/password login
     if (status !== "loading") {
       const storedToken = localStorage.getItem("token");
       const storedUser = localStorage.getItem("user");
-      if (storedToken && storedUser) {
-        setToken(storedToken);
-        setUser(JSON.parse(storedUser));
-      }
-      setLoading(false);
+
+      setTimeout(() => {
+        if (storedToken && storedUser) {
+          setToken(storedToken);
+          setUser(JSON.parse(storedUser));
+        }
+        setLoading(false);
+      }, 0);
     }
-  }, [session, status]);
+  }, [session, status, router]); // ← added router to dependencies
 
   const login = (userData, userToken) => {
     setUser(userData);
@@ -62,6 +65,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("role_selected");
+    signOut({ redirect: false }); // ← added to clear Google session on logout
   };
 
   return (
