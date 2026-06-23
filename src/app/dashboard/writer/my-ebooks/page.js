@@ -91,7 +91,7 @@ export default function MyEbooksPage() {
                     </td>
                     <td className="px-6 py-4 text-gray-500">{ebook.genre}</td>
                     <td className="px-6 py-4 text-secondary font-bold">
-                      ${ebook.price}
+                      ${Number(ebook.price).toFixed(2)}
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${

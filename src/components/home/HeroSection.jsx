@@ -1,9 +1,11 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowRight, FiBook } from "react-icons/fi";
 
 export default function HeroSection() {
+  const { user } = useAuth();
   return (
     <section className="bg-primary min-h-[90vh] flex items-center relative overflow-hidden">
       {/* Background decoration */}
@@ -40,12 +42,18 @@ export default function HeroSection() {
             >
               Browse Ebooks <FiArrowRight size={16} />
             </Link>
-            <Link
-              href="/register"
-              className="border border-white text-white px-8 py-4 rounded-lg font-bold text-sm hover:bg-white hover:text-primary transition"
-            >
-              Start Writing
-            </Link>
+            {user?.role !== "user" && (
+              <Link
+                href={
+                  user?.role === "writer"
+                    ? "/dashboard/writer/add-ebook"
+                    : "/register"
+                }
+                className="border border-white text-white px-8 py-4 rounded-lg font-bold text-sm hover:bg-white hover:text-primary transition"
+              >
+                {user?.role === "writer" ? "Add New Ebook" : "Start Writing"}
+              </Link>
+            )}
           </div>
           {/* Stats Row */}
           <div className="flex gap-8 mt-12">

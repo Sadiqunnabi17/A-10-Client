@@ -86,7 +86,7 @@ export default function FeaturedEbooks() {
                         {ebook.writer?.name}
                       </p>
                       <p className="text-secondary font-bold text-sm mt-1">
-                        ${ebook.price}
+                        ${Number(ebook.price).toFixed(2)}
                       </p>
                     </div>
                   </div>

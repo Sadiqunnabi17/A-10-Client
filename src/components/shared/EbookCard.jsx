@@ -79,7 +79,7 @@ export default function EbookCard({ ebook }) {
         </Link>
         <p className="text-gray-400 text-xs mt-1 truncate">{ebook.writer?.name}</p>
         <div className="flex items-center justify-between mt-2">
-          <span className="text-secondary font-bold">${ebook.price}</span>
+          <span className="text-secondary font-bold">${Number(ebook.price).toFixed(2)}</span>
           <span className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-full">
             {ebook.genre}
           </span>

@@ -65,7 +65,7 @@ export default function WriterBookmarksPage() {
                   </h3>
                   <p className="text-gray-400 text-xs mt-1">{ebook.writer?.name}</p>
                   <p className="text-secondary font-bold text-sm mt-2">
-                    ${ebook.price}
+                    ${Number(ebook.price).toFixed(2)}
                   </p>
                 </div>
               </div>

@@ -187,7 +187,7 @@ export default function EbookDetailsPage() {
 
               <div>
                 <div className="text-3xl font-bold text-secondary mb-6">
-                  ${ebook.price}
+                  ${Number(ebook.price).toFixed(2)}
                 </div>
 
                 <div className="flex gap-3">
