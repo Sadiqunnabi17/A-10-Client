@@ -1,5 +1,6 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,8 +13,18 @@ export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
   const { login } = useAuth();
   const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.backendToken && session?.backendUser) {
+      login(session.backendUser, session.backendToken);
+      toast.success("Google Login successful!");
+      router.push("/");
+    }
+  }, [session, login, router]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
