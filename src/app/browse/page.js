@@ -72,7 +72,7 @@ function BrowseContent() {
   };
 
   return (
-    <div className="min-h-screen bg-accent">
+    <div className="bg-accent pb-12">
       {/* Header */}
       <div className="bg-primary py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">

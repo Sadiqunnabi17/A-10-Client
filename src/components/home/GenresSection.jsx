@@ -15,7 +15,7 @@ const genres = [
 
 export default function GenresSection() {
   return (
-    <section className="py-20 bg-accent">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,7 +47,7 @@ export default function GenresSection() {
             >
               <Link
                 href={`/browse?genre=${genre.name}`}
-                className="bg-white border-2 border-transparent hover:border-secondary rounded-xl p-6 flex flex-col items-center gap-3 text-center hover:shadow-md transition block group"
+                className="bg-accent border-2 border-transparent hover:border-secondary rounded-xl p-6 flex flex-col items-center gap-3 text-center hover:shadow-md transition block group"
               >
                 <span className="text-4xl">{genre.emoji}</span>
                 <span className="font-semibold text-sm text-primary group-hover:text-secondary transition">

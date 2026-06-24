@@ -46,7 +46,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-accent">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-accent py-8">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 text-primary font-bold text-3xl mb-2">
