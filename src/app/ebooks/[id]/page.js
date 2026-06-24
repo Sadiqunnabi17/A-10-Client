@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import axiosInstance from "@/lib/axios";
 import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
-import { FiBook, FiUser, FiTag, FiCalendar, FiBookmark, FiShoppingCart } from "react-icons/fi";
+import { FiBook, FiUser, FiTag, FiCalendar, FiBookmark, FiShoppingCart, FiLock } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 export default function EbookDetailsPage() {
@@ -24,7 +24,6 @@ export default function EbookDetailsPage() {
         const res = await axiosInstance.get(`/ebooks/${id}`);
         setEbook(res.data);
 
-        // Check if already purchased
         if (user) {
           const purchasesRes = await axiosInstance.get("/users/purchases");
           const purchased = purchasesRes.data.some(
@@ -32,7 +31,6 @@ export default function EbookDetailsPage() {
           );
           setIsPurchased(purchased);
 
-          // Check if bookmarked
           const profileRes = await axiosInstance.get("/users/profile");
           const bookmarked = profileRes.data.bookmarks?.some(
             (b) => b._id === id || b === id
@@ -61,6 +59,7 @@ export default function EbookDetailsPage() {
       const res = await axiosInstance.post("/payment/create-checkout-session", {
         ebookId: id,
       });
+      localStorage.setItem("pending_ebook_id", id);
       window.location.href = res.data.url;
     } catch (err) {
       toast.error(err.response?.data?.message || "Purchase failed");
@@ -88,7 +87,7 @@ export default function EbookDetailsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-accent flex items-center justify-center">
-        <div className="animate-pulse max-w-4xl w-full mx-auto px-4 py-12">
+        <div className="animate-pulse max-w-4xl w-full mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-gray-200 rounded-xl h-96" />
             <div className="space-y-4">
@@ -108,7 +107,7 @@ export default function EbookDetailsPage() {
         <div className="text-center">
           <FiBook size={64} className="text-gray-300 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-primary">Ebook not found</h2>
-          <p className="text-gray-400 mt-2">The ebook you're looking for doesn't exist</p>
+          <p className="text-gray-500 mt-2">The ebook you are looking for doesn't exist</p>
         </div>
       </div>
     );
@@ -117,8 +116,8 @@ export default function EbookDetailsPage() {
   const isWriter = user?.id === ebook.writer?._id;
 
   return (
-    <div className="min-h-screen bg-accent py-12">
-      <div className="max-w-5xl mx-auto px-4">
+    <div className="min-h-screen bg-accent py-8">
+      <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,84 +141,103 @@ export default function EbookDetailsPage() {
             </div>
 
             {/* Details */}
-            <div className="p-8 flex flex-col justify-between">
-              <div>
-                <span className="text-secondary text-xs font-semibold uppercase tracking-widest">
-                  {ebook.genre}
-                </span>
-                <h1
-                  className="text-3xl font-bold text-primary mt-2 mb-4"
-                  style={{ fontFamily: "Georgia, serif" }}
-                >
-                  {ebook.title}
-                </h1>
+            <div className="p-8 flex flex-col">
+              {/* Back Button */}
+              <button
+                onClick={() => router.back()}
+                className="flex items-center gap-1 text-gray-400 hover:text-primary text-sm mb-4 transition w-fit"
+              >
+                ← Back
+              </button>
 
-                <div className="flex items-center gap-2 text-gray-500 text-sm mb-2">
-                  <FiUser size={14} />
-                  <span>{ebook.writer?.name}</span>
-                </div>
+              {/* Genre */}
+              <span className="text-secondary text-xs font-semibold uppercase tracking-widest">
+                {ebook.genre}
+              </span>
 
-                <div className="flex items-center gap-2 text-gray-500 text-sm mb-6">
-                  <FiCalendar size={14} />
-                  <span>
-                    {new Date(ebook.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
+              {/* Title */}
+              <h1
+                className="text-3xl font-bold text-primary mt-2 mb-4"
+                style={{ fontFamily: "Georgia, serif" }}
+              >
+                {ebook.title}
+              </h1>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  {ebook.description}
-                </p>
-
-                {/* Full content if purchased */}
-                {isPurchased && (
-                  <div className="bg-accent rounded-xl p-4 mb-6">
-                    <h3 className="text-primary font-semibold mb-2">Full Content</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {ebook.content}
-                    </p>
-                  </div>
-                )}
+              {/* Author & Date */}
+              <div className="flex items-center gap-2 text-gray-500 text-sm mb-2">
+                <FiUser size={14} />
+                <span>{ebook.writer?.name}</span>
               </div>
 
-              <div>
-                <div className="text-3xl font-bold text-secondary mb-6">
-                  ${Number(ebook.price).toFixed(2)}
+              <div className="flex items-center gap-2 text-gray-500 text-sm mb-6">
+                <FiCalendar size={14} />
+                <span>
+                  {new Date(ebook.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+
+              {/* Description */}
+              <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                {ebook.description}
+              </p>
+
+              {/* Full content if purchased */}
+              {isPurchased && ebook.content && (
+                <div className="bg-accent rounded-xl p-4 mb-6">
+                  <h3 className="text-primary font-semibold mb-2">Full Content</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {ebook.content}
+                  </p>
                 </div>
+              )}
 
-                <div className="flex gap-3">
-                  {isPurchased ? (
-                    <button
-                      disabled
-                      className="flex-1 bg-green-100 text-green-700 py-3 rounded-lg font-semibold text-sm"
-                    >
-                      ✓ Already Purchased
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handlePurchase}
-                      disabled={purchasing || isWriter}
-                      className="flex-1 bg-primary text-white py-3 rounded-lg font-semibold text-sm hover:bg-dark transition disabled:opacity-50 flex items-center justify-center gap-2"
-                    >
-                      <FiShoppingCart size={16} />
-                      {purchasing ? "Redirecting..." : isWriter ? "Your Ebook" : "Buy Now"}
-                    </button>
-                  )}
+              {/* Price */}
+              <div className="text-2xl font-bold text-secondary mb-4">
+                ${Number(ebook.price).toFixed(2)}
+              </div>
 
+              {/* Login notice for guests */}
+              {!user && (
+                <p className="text-xs text-gray-500 mb-3 flex items-center gap-1">
+                  <FiLock size={12} />
+                  Login required to purchase or bookmark
+                </p>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                {isPurchased ? (
                   <button
-                    onClick={handleBookmark}
-                    className={`px-4 py-3 rounded-lg border transition ${
-                      isBookmarked
-                        ? "bg-secondary text-primary border-secondary"
-                        : "border-gray-200 text-gray-400 hover:border-secondary"
-                    }`}
+                    disabled
+                    className="flex-1 bg-green-100 text-green-700 py-3 rounded-lg font-semibold text-sm"
                   >
-                    <FiBookmark size={18} />
+                    ✓ Already Purchased
                   </button>
-                </div>
+                ) : (
+                  <button
+                    onClick={handlePurchase}
+                    disabled={purchasing || isWriter}
+                    className="flex-1 bg-primary text-white py-3 rounded-lg font-semibold text-sm hover:bg-dark transition disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    <FiShoppingCart size={16} />
+                    {purchasing ? "Redirecting..." : isWriter ? "Your Ebook" : "Buy Now"}
+                  </button>
+                )}
+
+                <button
+                  onClick={handleBookmark}
+                  className={`px-4 py-3 rounded-lg border transition ${
+                    isBookmarked
+                      ? "bg-secondary text-primary border-secondary"
+                      : "border-gray-200 text-gray-400 hover:border-secondary"
+                  }`}
+                >
+                  <FiBookmark size={18} />
+                </button>
               </div>
             </div>
           </div>
