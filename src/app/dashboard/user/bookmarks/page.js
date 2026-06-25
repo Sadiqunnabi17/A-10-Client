@@ -71,6 +71,18 @@ export default function BookmarksPage() {
               </div>
             </Link>
           ))}
+          
+          {bookmarks.length > 0 && (
+            <div className="mt-6 text-center">
+              <Link
+                href="/browse"
+                className="text-secondary text-sm hover:underline"
+              >
+                Browse more ebooks →
+              </Link>
+            </div>
+          )}
+
         </div>
       )}
     </div>

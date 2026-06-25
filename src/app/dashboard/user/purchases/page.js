@@ -26,7 +26,7 @@ export default function PurchasesPage() {
         Purchase History
       </h1>
 
-      <div className="bg-white rounded-xl shadow-sm">
+      <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
 
         {loading ? (
           <div className="animate-pulse p-6 space-y-3">
