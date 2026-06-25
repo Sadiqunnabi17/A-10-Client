@@ -26,7 +26,7 @@ export default function PurchasesPage() {
         Purchase History
       </h1>
 
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
 
         {loading ? (
           <div className="animate-pulse p-6 space-y-3">
@@ -41,53 +41,62 @@ export default function PurchasesPage() {
 
             <Link
               href="/browse"
-              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-dark transition inline-flex items-center gap-2"
-            >
-              <FiBook size={16} />
+              className="text-secondary hover:underline text-sm mt-2 block">
               Buy More Books
             </Link>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50">
-                <tr className="text-left text-gray-400">
-                  <th className="px-6 py-4">Ebook</th>
-                  <th className="px-6 py-4">Price</th>
-                  <th className="px-6 py-4">Date</th>
-                  <th className="px-6 py-4">Action</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {purchases.map((t) => (
-                  <tr key={t._id} className="border-t hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium text-primary">
-                      {t.ebook?.title}
-                    </td>
-
-                    <td className="px-6 py-4 text-secondary font-bold">
-                      ${Number(t.ebook?.price).toFixed(2)}
-                    </td>
-
-                    <td className="px-6 py-4 text-gray-400">
-                      {new Date(t.createdAt).toLocaleDateString()}
-                    </td>
-
-                    <td className="px-6 py-4">
-                      <Link
-                        href={`/ebooks/${t.ebook?._id}`}
-                        className="text-secondary text-xs hover:underline"
-                      >
-                        View Ebook
-                      </Link>
-                    </td>
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50">
+                  <tr className="text-left text-gray-400">
+                    <th className="px-6 py-4">Ebook</th>
+                    <th className="px-6 py-4">Price</th>
+                    <th className="px-6 py-4">Date</th>
+                    <th className="px-6 py-4">Action</th>
                   </tr>
-                ))}
-              </tbody>
+                </thead>
 
-            </table>
-          </div>
+                <tbody>
+                  {purchases.map((t) => (
+                    <tr key={t._id} className="border-t hover:bg-gray-50">
+                      <td className="px-6 py-4 font-medium text-primary">
+                        {t.ebook?.title}
+                      </td>
+
+                      <td className="px-6 py-4 text-secondary font-bold">
+                        ${Number(t.ebook?.price).toFixed(2)}
+                      </td>
+
+                      <td className="px-6 py-4 text-gray-400">
+                        {new Date(t.createdAt).toLocaleDateString()}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <Link
+                          href={`/ebooks/${t.ebook?._id}`}
+                          className="text-secondary text-xs hover:underline"
+                        >
+                          View Ebook
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
+              </table>
+            </div>
+
+            <div className="text-center py-6 border-t border-gray-100">
+              <Link
+                href="/browse"
+                className="bg-primary text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-dark transition inline-flex items-center gap-2"
+              >
+                🛒 Buy More Books
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </div>
