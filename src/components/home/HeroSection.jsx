@@ -25,7 +25,7 @@ export default function HeroSection() {
             Your Digital Library
           </span>
           <h1
-            className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "Georgia, serif" }}
           >
             Discover & Read
@@ -56,16 +56,16 @@ export default function HeroSection() {
             )}
           </div>
           {/* Stats Row */}
-          <div className="flex gap-8 mt-12">
+          <div className="flex text-center gap-20 mt-12">
             <div>
               <p className="text-secondary text-2xl font-bold">500+</p>
               <p className="text-gray-400">Ebook Available</p>
             </div>
-            <div className="border-1 border-white/20 pl-8">
+            <div>
               <p className="text-secondary text-2xl font-bold">200+</p>
               <p className="text-gray-400">Writer</p>
             </div>
-            <div className="border-1 border-white/20 pl-8">
+            <div>
               <p className="text-secondary text-2xl font-bold">1000+</p>
               <p className="text-gray-400">Happy Readers</p>
             </div>
