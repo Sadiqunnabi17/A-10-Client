@@ -32,7 +32,7 @@ export default function AdminDashboard() {
   ];
 
   const monthlyData = analytics?.monthlySales?.map((m) => ({
-    month: MONTHS[m._id - 1],
+    month: MONTHS[(m._id.month || m._id) - 1],
     revenue: m.total,
     sales: m.count,
   })) || [];
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {stats.map((stat, i) => (
-          <div key={i} className="bg-white rounded-xl p-6 shadow-sm">
+          <div key={i} className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
             <div className="flex items-center gap-3 mb-2">
               <stat.icon className="text-secondary" size={24} />
               <span className="text-gray-500 text-sm">{stat.label}</span>
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
         {/* Monthly Sales Bar Chart */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-secondary">
           <h2 className="text-lg font-bold text-primary mb-4">Monthly Sales</h2>
           {loading ? (
             <div className="h-48 bg-gray-100 rounded animate-pulse" />
