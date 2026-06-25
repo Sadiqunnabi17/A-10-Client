@@ -5,7 +5,9 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-accent flex items-center justify-center px-4">
       <div className="text-center">
-        <FiBook size={80} className="text-secondary opacity-60" />
+        <div className="flex justify-center mb-4">
+          <FiBook size={80} className="text-secondary opacity-60" />
+        </div>
         <h1
           className="text-4xl font-bold text-primary mb-2"
           style={{ fontFamily: "Georgia, serif" }}
@@ -16,7 +18,7 @@ export default function NotFound() {
           Page Not Found
         </h2>
         <p className="text-gray-500 mb-8 max-w-md max-auto">
-          The page you're looking for doesn't exist or has been moved.
+          The page you're looking for doesn't exist or has been removed.
           Let's get you back to your reading journey.
         </p>
         
@@ -29,7 +31,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/browse"
-            className="border-2 border-secondary text-secondary px-8 py-3 rounded-lg font-semibold text-sm hover:bg-secondary hover:text-primary transition"
+            className="border-2 border-secondary text-secondary px-6 py-2 rounded-lg font-semibold text-sm hover:bg-secondary hover:text-primary transition"
           >
             Browse Ebooks
           </Link>

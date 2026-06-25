@@ -50,8 +50,8 @@ export default function LoginPage() {
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 text-primary font-bold text-3xl mb-2">
-          <FiBook size={32} />
-          <span style={{ fontFamily: "Georgia, serif" }}>Fable</span>
+          <FiBook size={32} className="text-secondary opacity-100"/>
+          <span style={{ fontFamily: "Georgia, serif" }} className="text-secondary-400">Fable</span>
         </div>
         <p className="text-center text-gray-500 text-sm mb-8">
           Sign in to your account
