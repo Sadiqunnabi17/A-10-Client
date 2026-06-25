@@ -54,14 +54,14 @@ export default function WriterDashboard() {
           </div>
           <p className="text-3xl font-bold text-primary">{ebooks.length}</p>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm">
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
           <div className="flex items-center gap-3 mb-2">
             <FiDollarSign className="text-secondary" size={24} />
             <span className="text-gray-500 text-sm">Total Revenue</span>
           </div>
           <p className="text-3xl font-bold text-primary">${totalRevenue}</p>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm">
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
           <div className="flex items-center gap-3 mb-2">
             <FiEye className="text-secondary" size={24} />
             <span className="text-gray-500 text-sm">Total Sales</span>
@@ -71,7 +71,7 @@ export default function WriterDashboard() {
       </div>
 
       {/* My Ebooks Table */}
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-primary">My Ebooks</h2>
           <Link href="/dashboard/writer/my-ebooks"

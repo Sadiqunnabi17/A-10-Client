@@ -77,7 +77,7 @@ export default function AddEbookPage() {
         Add New Ebook
       </h1>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 max-w-2xl">
+      <div className="bg-white rounded-xl shadow-sm p-6 max-w-3xl">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Cover Image Upload */}
           <div>
