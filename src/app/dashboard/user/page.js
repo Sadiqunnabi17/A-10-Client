@@ -39,29 +39,29 @@ export default function UserDashboard() {
       </h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 border-secondary min-w-0">
           <div className="flex items-center gap-3 mb-2">
             <FiShoppingBag className="text-secondary" size={20} />
             <span className="text-gray-500 text-sm">Total Purchases</span>
           </div>
-          <p className="text-3xl font-bold text-primary">{purchases.length}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-primary break-words">{purchases.length}</p>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 border-secondary">
           <div className="flex items-center gap-3 mb-2">
             <FiDollarSign className="text-secondary" size={20} />
             <span className="text-gray-500 text-sm">Total Spent</span>
           </div>
-          <p className="text-3xl font-bold text-primary">${totalSpent.toFixed(2)}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-primary break-words">${totalSpent.toFixed(2)}</p>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 border-secondary min-w-0">
           <div className="flex items-center gap-3 mb-2">
             <FiBookmark className="text-secondary" size={20} />
             <span className="text-gray-500 text-sm">Bookmarks</span>
           </div>
-          <p className="text-3xl font-bold text-primary">{bookmarks.length}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-primary break-words">{bookmarks.length}</p>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 border-secondary min-w-0">
           <div className="flex items-center gap-3 mb-2">
             <FiUser className="text-secondary" size={20} />
             <span className="text-gray-500 text-sm">Role</span>
@@ -96,10 +96,11 @@ export default function UserDashboard() {
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full min-w-[650px] text-sm">
                 <thead>
                   <tr className="text-left text-gray-400 border-b">
                     <th className="pb-3">Ebook</th>
+                    <th className="pb-3">Writer</th>
                     <th className="pb-3">Price</th>
                     <th className="pb-3">Date</th>
                   </tr>
@@ -111,7 +112,10 @@ export default function UserDashboard() {
                         {t.ebook?.title}
                       </td>
                       <td className="py-3 text-secondary font-bold">
-                        ${Number(t.ebook?.price).toFixed(2)}
+                        {t.ebook?.writer?.name || "Unknown Writer"}
+                      </td>
+                      <td className="py-3 text-secondary font-bold">
+                        ${Number(t.ebook?.price || 0).toFixed(2)}
                       </td>
                       <td className="py-3 text-gray-400">
                         {new Date(t.createdAt).toLocaleDateString()}
