@@ -143,9 +143,9 @@ export default function EditEbookPage() {
             />
           </div>
 
-          {/* Description */}
+          {/* Short Description */}
           <div>
-            <label className="text-sm font-medium text-gray-600 mb-1 block">Description</label>
+            <label className="text-sm font-medium text-gray-600 mb-1 block">Short Description</label>
             <textarea
               name="description"
               value={form.description}
@@ -156,9 +156,9 @@ export default function EditEbookPage() {
             />
           </div>
 
-          {/* Content */}
+          {/* Summary Content */}
           <div>
-            <label className="text-sm font-medium text-gray-600 mb-1 block">Full Content</label>
+            <label className="text-sm font-medium text-gray-600 mb-1 block">Summary Content</label>
             <textarea
               name="content"
               value={form.content}

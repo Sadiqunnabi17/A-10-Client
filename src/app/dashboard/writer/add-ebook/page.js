@@ -125,10 +125,10 @@ export default function AddEbookPage() {
             />
           </div>
 
-          {/* Description */}
+          {/* Short Description */}
           <div>
             <label className="text-sm font-medium text-gray-600 mb-1 block">
-              Description
+              Short Description
             </label>
             <textarea
               name="description"
@@ -141,10 +141,10 @@ export default function AddEbookPage() {
             />
           </div>
 
-          {/* Full Content */}
+          {/* Summary Content */}
           <div>
             <label className="text-sm font-medium text-gray-600 mb-1 block">
-              Full Content
+              Summary Content
             </label>
             <textarea
               name="content"
@@ -152,7 +152,7 @@ export default function AddEbookPage() {
               onChange={handleChange}
               required
               rows={6}
-              placeholder="Full content of your ebook (visible after purchase)"
+              placeholder="Summary content of your ebook (visible after purchase)"
               className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm outline-none focus:border-secondary transition resize-none"
             />
           </div>
