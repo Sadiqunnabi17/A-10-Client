@@ -79,9 +79,9 @@ export default function RegisterPage() {
             <FiUser className="absolute left-3 top-3.5 text-gray-400" />
             <input
               type="url"
-              name="photoUrl"
+              name="photo"
               placeholder="Profile photo URL (optional)"
-              value={form.photoUrl}
+              value={form.photo}
               onChange={handleChange}
               className="w-full border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm outline-none focus:border-secondary transition"
             />
@@ -124,7 +124,7 @@ export default function RegisterPage() {
           <div className="relative">
             <FiLock className="absolute left-3 top-3.5 text-gray-400" />
             <input
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               placeholder="Confirm Password"
               value={form.confirmPassword}

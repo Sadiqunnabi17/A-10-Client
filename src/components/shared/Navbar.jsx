@@ -24,6 +24,8 @@ export default function Navbar() {
     { href: "/dashboard", label: "Dashboard" },
   ];
 
+  console.log("Navbar user:", user);
+
   return (
     <nav className="bg-primary text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -39,11 +41,10 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition hover:text-secondary ${
-                pathname === link.href
+              className={`text-sm font-medium transition hover:text-secondary ${pathname === link.href
                   ? "text-secondary border-b-2 border-secondary"
                   : "text-white"
-              }`}
+                }`}
             >
               {link.label}
             </Link>
@@ -53,7 +54,19 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link href="/dashboard">
                 <div className="flex items-center gap-2 bg-secondary/20 px-3 py-1.5 rounded-full">
-                  <FiUser size={16} className="text-secondary" />
+                  {user?.photo ? (
+                    <img
+                      src={user.photo}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full object-cover border border-secondary"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <FiUser size={16} className="text-secondary" />
+                  )}
+
                   <span className="text-sm text-secondary font-medium">
                     {user.name?.split(" ")[0]}
                   </span>
@@ -94,20 +107,19 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className={`text-sm font-medium py-2 transition hover:text-secondary ${
-                pathname === link.href ? "text-secondary" : "text-white"
-              }`}
+              className={`text-sm font-medium py-2 transition hover:text-secondary ${pathname === link.href ? "text-secondary" : "text-white"
+                }`}
             >
               {link.label}
             </Link>
           ))}
-          
+
           {user && (
             <div className="border-t border-white/10 pt-3 mt-1">
               <p className="text-xs text-gray-400 px-2 mb-2">Signed in as {user.name}</p>
             </div>
           )}
-          
+
           {user ? (
             <button
               onClick={handleLogout}
