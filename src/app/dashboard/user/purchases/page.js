@@ -52,6 +52,7 @@ export default function PurchasesPage() {
                 <thead className="bg-gray-50">
                   <tr className="text-left text-gray-400">
                     <th className="px-6 py-4">Ebook</th>
+                    <th className="px-6 py-4">Writer</th>
                     <th className="px-6 py-4">Price</th>
                     <th className="px-6 py-4">Date</th>
                     <th className="px-6 py-4">Action</th>
@@ -65,8 +66,12 @@ export default function PurchasesPage() {
                         {t.ebook?.title}
                       </td>
 
+                      <td className="px-6 py-4 text-gray-500">
+                        {t.ebook?.writer?.name || "Unknown Writer"}
+                      </td>
+
                       <td className="px-6 py-4 text-secondary font-bold">
-                        ${Number(t.ebook?.price).toFixed(2)}
+                        ${Number(t.ebook?.price || 0).toFixed(2)}
                       </td>
 
                       <td className="px-6 py-4 text-gray-400">

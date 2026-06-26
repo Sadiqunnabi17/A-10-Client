@@ -24,8 +24,6 @@ export default function Navbar() {
     { href: "/dashboard", label: "Dashboard" },
   ];
 
-  console.log("Navbar user:", user);
-
   return (
     <nav className="bg-primary text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
