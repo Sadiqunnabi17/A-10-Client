@@ -181,7 +181,7 @@ export default function EbookDetailsPage() {
               </div>
 
               {/* Description */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+              <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1 min-h-[80px]">
                 {ebook.description}
               </p>
 
