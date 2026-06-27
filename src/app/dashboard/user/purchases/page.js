@@ -35,7 +35,7 @@ export default function PurchasesPage() {
             ))}
           </div>
         ) : purchases.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-gray-500">
             <FiBook size={48} className="mx-auto mb-4 opacity-30" />
             <p className="mb-6">No purchases yet.</p>
 
@@ -50,7 +50,7 @@ export default function PurchasesPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="bg-gray-50">
-                  <tr className="text-left text-gray-400">
+                  <tr className="text-left text-gray-600">
                     <th className="px-6 py-4">Ebook</th>
                     <th className="px-6 py-4">Writer</th>
                     <th className="px-6 py-4">Price</th>
@@ -70,7 +70,7 @@ export default function PurchasesPage() {
                         {t.ebook?.writer?.name || "Unknown Writer"}
                       </td>
 
-                      <td className="px-6 py-4 text-secondary font-bold">
+                      <td className="px-6 py-4 text-gray-500">
                         ${Number(t.ebook?.price || 0).toFixed(2)}
                       </td>
 
@@ -81,7 +81,7 @@ export default function PurchasesPage() {
                       <td className="px-6 py-4">
                         <Link
                           href={`/ebooks/${t.ebook?._id}`}
-                          className="text-secondary text-xs hover:underline"
+                          className="text-gray-500 text-xs hover:underline"
                         >
                           View Ebook
                         </Link>

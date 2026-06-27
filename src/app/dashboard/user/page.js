@@ -98,7 +98,7 @@ export default function UserDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[650px] text-sm">
                 <thead>
-                  <tr className="text-left text-gray-400 border-b">
+                  <tr className="text-left text-gray-600 border-b">
                     <th className="pb-3">Ebook</th>
                     <th className="pb-3">Writer</th>
                     <th className="pb-3">Price</th>
@@ -108,16 +108,16 @@ export default function UserDashboard() {
                 <tbody>
                   {purchases.slice(0, 5).map((t) => (
                     <tr key={t._id} className="border-b last:border-0">
-                      <td className="py-3 font-medium text-primary">
+                      <td className="py-3 font-medium text-gray-500">
                         {t.ebook?.title}
                       </td>
-                      <td className="py-3 text-secondary font-bold">
+                      <td className="py-3 text-gray-500">
                         {t.ebook?.writer?.name || "Unknown Writer"}
                       </td>
-                      <td className="py-3 text-secondary font-bold">
+                      <td className="py-3 text-gray-500">
                         ${Number(t.ebook?.price || 0).toFixed(2)}
                       </td>
-                      <td className="py-3 text-gray-400">
+                      <td className="py-3 text-gray-500">
                         {new Date(t.createdAt).toLocaleDateString()}
                       </td>
                     </tr>
