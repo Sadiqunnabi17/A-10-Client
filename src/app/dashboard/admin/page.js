@@ -28,7 +28,7 @@ export default function AdminDashboard() {
     { label: "Total Users", value: analytics?.totalUsers || 0, icon: FiUsers },
     { label: "Total Writers", value: analytics?.totalWriters || 0, icon: FiTrendingUp },
     { label: "Total Ebooks", value: analytics?.totalEbooks || 0, icon: FiBook },
-    { label: "Total Revenue", value: `$${analytics?.totalRevenue || 0}`, icon: FiDollarSign },
+    { label: "Total Revenue", value: `$${Number(analytics?.totalRevenue || 0).toFixed(2)}`, icon: FiDollarSign },
   ];
 
   const monthlyData = analytics?.monthlySales?.map((m) => ({
@@ -50,9 +50,9 @@ export default function AdminDashboard() {
       </h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((stat, i) => (
-          <div key={i} className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary">
+          <div key={i} className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 border-secondary min-w-0">
             <div className="flex items-center gap-3 mb-2">
               <stat.icon className="text-secondary" size={24} />
               <span className="text-gray-500 text-sm">{stat.label}</span>
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
             {loading ? (
               <div className="h-8 bg-gray-100 rounded animate-pulse" />
             ) : (
-              <p className="text-3xl font-bold text-primary">{stat.value}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-primary break-words">{stat.value}</p>
             )}
           </div>
         ))}
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
               No ebook data yet
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={250}>
               <PieChart>
                 <Pie
                   data={genreData}
@@ -109,8 +109,7 @@ export default function AdminDashboard() {
                   cy="50%"
                   outerRadius={80}
                   dataKey="value"
-                  label={({ name, value }) => `${name}: ${value}`}
-                  labelLine={false}
+                  label={false}
                 >
                   {genreData.map((_, index) => (
                     <Cell
@@ -119,8 +118,19 @@ export default function AdminDashboard() {
                     />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
+                <Tooltip
+                  formatter={(value, name) => [name, value]}
+                />
+                <Legend
+                  layout="vertical"
+                  align="right"
+                  verticalAlign="middle"
+                  iconType="circle"
+                  iconSize={10}
+                  formatter={(value) => (
+                    <span style={{ fontSize: "12px" }}>{value}</span>
+                  )}
+                />
               </PieChart>
             </ResponsiveContainer>
           )}
