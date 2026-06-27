@@ -105,9 +105,9 @@ export default function AdminDashboard() {
               <PieChart>
                 <Pie
                   data={genreData}
-                  cx="50%"
+                  cx="40%"
                   cy="50%"
-                  outerRadius={80}
+                  outerRadius={90}
                   dataKey="value"
                   label={false}
                 >
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                   iconType="circle"
                   iconSize={10}
                   formatter={(value) => (
-                    <span style={{ fontSize: "12px" }}>{value}</span>
+                    <span style={{ fontSize: "11px" }}>{value}</span>
                   )}
                 />
               </PieChart>
@@ -155,9 +155,10 @@ export default function AdminDashboard() {
                 <span className="text-sm text-gray-600 w-24">{g.name}</span>
                 <div className="flex-1 bg-gray-100 rounded-full h-3">
                   <div
-                    className="bg-secondary h-3 rounded-full transition-all"
+                    className="h-3 rounded-full transition-all"
                     style={{
                       width: `${(g.value / (analytics?.totalEbooks || 1)) * 100}%`,
+                      backgroundColor: COLORS[genreData.indexOf(g) % COLORS.length],
                     }}
                   />
                 </div>
