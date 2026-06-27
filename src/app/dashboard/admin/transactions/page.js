@@ -40,6 +40,7 @@ export default function AdminTransactionsPage() {
                   <th className="px-6 py-4">Type</th>
                   <th className="px-6 py-4">Buyer</th>
                   <th className="px-6 py-4">Ebook</th>
+                  <th className="px-6 py-4">Writer</th>
                   <th className="px-6 py-4">Amount</th>
                   <th className="px-6 py-4">Date</th>
                 </tr>
@@ -62,8 +63,11 @@ export default function AdminTransactionsPage() {
                     <td className="px-6 py-4 font-medium text-primary">
                       {t.ebook?.title}
                     </td>
+                    <td className="px-6 py-4 text-gray-500">
+                      {t.ebook?.writer?.name || "Unknown Writer"}
+                    </td>
                     <td className="px-6 py-4 text-secondary font-bold">
-                      ${t.amount}
+                      ${t.amount.toFixed(2)}
                     </td>
                     <td className="px-6 py-4 text-gray-400">
                       {new Date(t.createdAt).toLocaleDateString()}
