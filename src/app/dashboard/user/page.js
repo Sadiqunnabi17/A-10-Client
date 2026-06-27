@@ -135,27 +135,6 @@ export default function UserDashboard() {
         )}
       </div>
 
-      {/* Profile */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-bold text-primary mb-4">Profile</h2>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border-2 border-secondary">
-            {user?.photo ? (
-              <img src={user.photo} alt={user.name}
-                className="w-full h-full rounded-full object-cover" />
-            ) : (
-              <FiUser size={28} className="text-primary/40" />
-            )}
-          </div>
-          <div>
-            <p className="font-semibold text-primary text-lg">{user?.name}</p>
-            <p className="text-gray-400 text-sm">{user?.email}</p>
-            <span className="text-xs bg-secondary/20 text-secondary px-2 py-0.5 rounded-full capitalize mt-1 inline-block">
-              {user?.role}
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

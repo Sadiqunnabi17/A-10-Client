@@ -34,6 +34,7 @@ export default function DashboardLayout({ children }) {
     { href: "/dashboard/user", label: "Overview", icon: FiHome },
     { href: "/dashboard/user/purchases", label: "Purchases", icon: FiShoppingBag },
     { href: "/dashboard/user/bookmarks", label: "Bookmarks", icon: FiBookmark },
+    { href: "/dashboard/user/profile", label: "Profile", icon: FiUser },
   ];
 
   const writerLinks = [
