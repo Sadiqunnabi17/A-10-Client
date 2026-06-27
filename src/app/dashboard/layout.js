@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   FiHome, FiBook, FiShoppingBag, FiBookmark,
-  FiUsers, FiDollarSign, FiBarChart2, FiPlusCircle
+  FiUsers, FiDollarSign, FiBarChart2, FiPlusCircle, FiUser
 } from "react-icons/fi";
 
 export default function DashboardLayout({ children }) {
@@ -42,6 +42,7 @@ export default function DashboardLayout({ children }) {
     { href: "/dashboard/writer/add-ebook", label: "Add Ebook", icon: FiPlusCircle },
     { href: "/dashboard/writer/sales", label: "Sales", icon: FiDollarSign },
     { href: "/dashboard/writer/bookmarks", label: "Bookmarks", icon: FiBookmark },
+    { href: "/dashboard/writer/profile", label: "Profile", icon: FiUser },
   ];
 
   const adminLinks = [
