@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
@@ -9,7 +9,7 @@ export default function MyEbooksPage() {
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchEbooks = async () => {
+  const fetchEbooks = useCallback(async () => {
     try {
       const res = await axiosInstance.get("/users/my-ebooks");
       setEbooks(res.data);
@@ -18,11 +18,11 @@ export default function MyEbooksPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchEbooks();
-  }, []);
+  }, [fetchEbooks]);
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this ebook?")) return;

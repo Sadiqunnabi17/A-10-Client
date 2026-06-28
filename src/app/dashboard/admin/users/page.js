@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
 import toast from "react-hot-toast";
 import { FiTrash2 } from "react-icons/fi";
@@ -8,7 +8,7 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const res = await axiosInstance.get("/admin/users");
       setUsers(res.data);
@@ -17,9 +17,11 @@ export default function AdminUsersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { fetchUsers(); }, []);
+  useEffect(() => { 
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleRoleChange = async (id, role) => {
     try {

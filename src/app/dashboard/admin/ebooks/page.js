@@ -19,7 +19,9 @@ export default function AdminEbooksPage() {
     }
   };
 
-  useEffect(() => { fetchEbooks(); }, []);
+  useEffect(() => { 
+    fetchEbooks();
+  }, []);
 
   const handleDelete = async (id) => {
     if (!confirm("Delete this ebook?")) return;
