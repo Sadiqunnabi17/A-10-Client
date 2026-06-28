@@ -14,7 +14,7 @@ export default function SalesPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const totalRevenue = sales.reduce((acc, s) => acc + (s.ebook?.price || 0), 0);
+  const totalRevenue = sales.reduce((acc, s) => acc + (Number(s.ebook?.price) || 0), 0);
 
   return (
     <div>
@@ -26,7 +26,7 @@ export default function SalesPage() {
       {/* Revenue Card */}
       <div className="bg-white rounded-xl p-6 shadow-sm mb-6 inline-block">
         <p className="text-gray-500 text-sm mb-1">Total Revenue</p>
-        <p className="text-3xl font-bold text-secondary">${totalRevenue}</p>
+        <p className="text-3xl font-bold text-secondary">${totalRevenue.toFixed(2)}</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -61,7 +61,7 @@ export default function SalesPage() {
                       {s.buyer?.name || s.buyer?.email || "Unknown"}
                     </td>
                     <td className="px-6 py-4 text-secondary font-bold">
-                      ${s.ebook?.price}
+                      ${Number(s.ebook?.price).toFixed(2)}
                     </td>
                     <td className="px-6 py-4 text-gray-400">
                       {new Date(s.createdAt).toLocaleDateString()}
