@@ -1,12 +1,12 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   FiHome, FiBook, FiShoppingBag, FiBookmark,
-  FiUsers, FiDollarSign, FiBarChart2, FiPlusCircle, FiUser, FiMenu, FiX
+  FiUsers, FiDollarSign, FiBarChart2, FiPlusCircle, FiUser, FiMoreVertical, FiGrid
 } from "react-icons/fi";
 
 export default function DashboardLayout({ children }) {
@@ -60,7 +60,7 @@ export default function DashboardLayout({ children }) {
       : user.role === "writer"
         ? writerLinks
         : userLinks;
-  const SidebarContent = () => (
+  const renderSidebar = () => (
     <>
       <div className="p-6 border-b border-white/10">
         <p className="text-secondary font-bold text-lg capitalize">
@@ -74,8 +74,8 @@ export default function DashboardLayout({ children }) {
             href={link.href}
             onClick={() => setSidebarOpen(false)}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${pathname === link.href
-                ? "bg-secondary text-primary"
-                : "text-gray-300 hover:bg-white/10"
+              ? "bg-secondary text-primary"
+              : "text-gray-300 hover:bg-white/10"
               }`}
           >
             <link.icon size={18} />
@@ -91,7 +91,7 @@ export default function DashboardLayout({ children }) {
 
       {/* Desktop Sidebar */}
       <aside className="w-64 bg-primary text-white min-h-screen hidden md:flex flex-col">
-        <SidebarContent />
+        {renderSidebar()}
       </aside>
 
       {/* Mobile Sidebar Overlay */}
@@ -104,34 +104,26 @@ export default function DashboardLayout({ children }) {
           />
           {/* Sidebar */}
           <aside className="absolute left-0 top-0 bottom-0 w-64 bg-primary text-white flex flex-col">
-            <div className="flex justify-end p-4 border-b border-white/10">
-              <button
-                onClick={() => setSidebarOpen(false)}
-                className="text-white hover:text-secondary transition"
-              >
-                <FiX size={24} />
-              </button>
-            </div>
-            <SidebarContent/>
+            {renderSidebar()}
           </aside>
         </div>
       )}
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Header */}
-        <div className="md:hidden flex items-center justify-between bg-primary text-white p-4">
+        {/* Mobile Top Bar */}
+        <div className="md:hidden bg-primary px-6 py-4 flex items-center justify-between sticky top-16 z-30">
+          <p className="text-secondary font-semibold text-sm capitalize">
+            {user.role} Dashboard
+          </p>
           <button
             onClick={() => setSidebarOpen(true)}
             className="text-white hover:text-secondary transition"
           >
-            <FiMenu size={24} />
+            <FiMoreVertical size={22} />
           </button>
-          <p className="text-secondary font-bold text-lg capitalize">
-            {user.role} Dashboard
-          </p>
         </div>
-
+        
         {/* Page Content */}
         <div className="flex-1 p-4 overflow-auto">
           {children}
