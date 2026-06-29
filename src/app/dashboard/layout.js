@@ -113,15 +113,15 @@ export default function DashboardLayout({ children }) {
       <main className="flex-1 flex flex-col min-w-0">
         {/* Mobile Top Bar */}
         <div className="md:hidden bg-primary px-6 py-4 flex items-center justify-between sticky top-16 z-30">
-          <p className="text-secondary font-semibold text-sm capitalize">
-            {user.role} Dashboard
-          </p>
           <button
             onClick={() => setSidebarOpen(true)}
             className="text-white hover:text-secondary transition"
           >
             <FiMoreVertical size={22} />
           </button>
+          <p className="text-secondary font-semibold text-sm capitalize">
+            {user.role} Dashboard
+          </p>
         </div>
         
         {/* Page Content */}
