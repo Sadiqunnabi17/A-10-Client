@@ -1,14 +1,23 @@
 "use client";
+
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import axiosInstance from "@/lib/axios";
 import toast from "react-hot-toast";
-import { FiUser, FiMail, FiEdit, FiSave } from "react-icons/fi";
+import {
+  FiUser,
+  FiMail,
+  FiEdit,
+  FiSave,
+  FiShoppingBag,
+  FiBookmark,
+} from "react-icons/fi";
 
 export default function WriterProfilePage() {
   const { user, login, token } = useAuth();
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: user?.name || "",
     photo: user?.photo || "",
@@ -32,10 +41,20 @@ export default function WriterProfilePage() {
     }
   };
 
+  const memberSince = user?.createdAt
+    ? new Date(user.createdAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "Fable Member";
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-primary mb-6"
-        style={{ fontFamily: "Georgia, serif" }}>
+      <h1
+        className="text-2xl font-bold text-primary mb-6"
+        style={{ fontFamily: "Georgia, serif" }}
+      >
         My Profile
       </h1>
 
@@ -53,6 +72,7 @@ export default function WriterProfilePage() {
               <FiUser size={40} className="text-primary/30" />
             )}
           </div>
+
           <div>
             <p className="text-xl font-bold text-primary">{user?.name}</p>
             <p className="text-gray-400 text-sm">{user?.email}</p>
@@ -62,7 +82,7 @@ export default function WriterProfilePage() {
           </div>
         </div>
 
-        {/* Form */}
+        {/* Form / Profile View */}
         {editing ? (
           <div className="flex flex-col gap-4">
             <div>
@@ -70,7 +90,10 @@ export default function WriterProfilePage() {
                 Full Name
               </label>
               <div className="relative">
-                <FiUser className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                <FiUser
+                  className="absolute left-3 top-3.5 text-gray-400"
+                  size={14}
+                />
                 <input
                   type="text"
                   name="name"
@@ -86,7 +109,10 @@ export default function WriterProfilePage() {
                 Photo URL
               </label>
               <div className="relative">
-                <FiUser className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                <FiUser
+                  className="absolute left-3 top-3.5 text-gray-400"
+                  size={14}
+                />
                 <input
                   type="url"
                   name="photo"
@@ -107,6 +133,7 @@ export default function WriterProfilePage() {
                 <FiSave size={16} />
                 {loading ? "Saving..." : "Save Changes"}
               </button>
+
               <button
                 onClick={() => setEditing(false)}
                 className="px-6 py-3 border border-gray-200 rounded-lg text-sm hover:border-secondary transition"
@@ -116,29 +143,56 @@ export default function WriterProfilePage() {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3 p-4 bg-accent rounded-lg">
-              <FiUser className="text-secondary" size={18} />
-              <div>
-                <p className="text-xs text-gray-400">Full Name</p>
-                <p className="text-primary font-medium">{user?.name}</p>
+          <>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3 p-4 bg-accent rounded-lg">
+                <FiUser className="text-secondary" size={18} />
+                <div>
+                  <p className="text-xs text-gray-400">Full Name</p>
+                  <p className="text-primary font-medium">{user?.name}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-accent rounded-lg">
+                <FiMail className="text-secondary" size={18} />
+                <div>
+                  <p className="text-xs text-gray-400">Email</p>
+                  <p className="text-primary font-medium">{user?.email}</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setEditing(true)}
+                className="mt-2 bg-primary text-white py-3 rounded-lg font-semibold text-sm hover:bg-dark transition flex items-center justify-center gap-2"
+              >
+                <FiEdit size={16} />
+                Edit Profile
+              </button>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="flex flex-col gap-4 mt-6">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-secondary">
+                <div className="flex items-center gap-3 mb-2">
+                  <FiShoppingBag className="text-secondary" size={20} />
+                  <span className="text-gray-500 text-sm">Member Since</span>
+                </div>
+                <p className="text-lg font-bold text-primary">
+                  {memberSince}
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-secondary">
+                <div className="flex items-center gap-3 mb-2">
+                  <FiBookmark className="text-secondary" size={20} />
+                  <span className="text-gray-500 text-sm">Account Type</span>
+                </div>
+                <p className="text-lg font-bold text-primary capitalize">
+                  {user?.role} Account
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-accent rounded-lg">
-              <FiMail className="text-secondary" size={18} />
-              <div>
-                <p className="text-xs text-gray-400">Email</p>
-                <p className="text-primary font-medium">{user?.email}</p>
-              </div>
-            </div>
-            <button
-              onClick={() => setEditing(true)}
-              className="mt-2 bg-primary text-white py-3 rounded-lg font-semibold text-sm hover:bg-dark transition flex items-center justify-center gap-2"
-            >
-              <FiEdit size={16} />
-              Edit Profile
-            </button>
-          </div>
+          </>
         )}
       </div>
     </div>
