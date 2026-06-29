@@ -159,6 +159,7 @@ export default function UserProfilePage() {
                 ? new Date(user.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
+                    day: "numeric"
                   })
                 : "Fable Member"}
             </p>
